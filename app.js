@@ -60,7 +60,8 @@ const corsOptions = {
     const allowedOrigins = [
       "http://localhost:3000",
       "http://localhost:5173",
-      "https://reunir1.netlify.app/"
+      "https://reunir1.netlify.app/",
+      "https://reunir1.netlify.app/admin",
     ];
 
     if (allowedOrigins.indexOf(origin) !== -1 || NODE_ENV === "development") {
