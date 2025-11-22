@@ -53,18 +53,18 @@ if (NODE_ENV === "development") {
 }
 
 // CORS Configuration
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://reunir1.netlify.app",
+];
+
 const corsOptions = {
   origin: function (origin, callback) {
+    // Allow requests with no origin (Postman, server-side, etc.)
     if (!origin) return callback(null, true);
 
-    const allowedOrigins = [
-      "http://localhost:3000",
-      "http://localhost:5173",
-      "https://reunir1.netlify.app/",
-      "https://reunir1.netlify.app/admin",
-    ];
-
-    if (allowedOrigins.indexOf(origin) !== -1 || NODE_ENV === "development") {
+    if (allowedOrigins.includes(origin) || process.env.NODE_ENV === "production") {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
@@ -73,6 +73,8 @@ const corsOptions = {
   credentials: true,
   optionsSuccessStatus: 200,
 };
+
+
 app.use(cors(corsOptions));
 
 app.use(express.json({ limit: "10mb" }));
